@@ -88,5 +88,30 @@ public class FileUtil {
 		
 	}
 
+	public static void saveToLocal(String result, String fileName,
+			String filePath) {
+		File path = new File(filePath);
+		if(!path.exists()){
+			path.mkdirs();
+		}
+		
+		File file = new File(filePath+fileName);
+		try {
+			FileOutputStream os = new FileOutputStream(file);
+			byte[] bytes = result.getBytes("gbk");
+			os.write(bytes);
+			os.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("保存文件成功");
+		
+	}
+
 
 }
