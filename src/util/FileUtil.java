@@ -1,21 +1,66 @@
 package util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 
 
 public class FileUtil {
+	
+	
+	/**
+	 * 读文件，将根据字节流来读。
+	 * @return
+	 */
+	public static String getProcessContent(InputStream is){
+		StringBuffer sb = null;
+		try {
+			InputStreamReader reader = new InputStreamReader(is, "gbk");
+//		BufferedReader br = new BufferedReader();
+			Scanner s = null;
+			s = new Scanner(new BufferedReader(reader));
+			sb = new StringBuffer();
+			String headLine = s.nextLine();
+			while(s.hasNextLine()){
+				String line = s.nextLine();
+				if(!(line.contains("站号")||line.contains("站名")||line.contains("最小相对湿度"))){
+					String[] columns = line.split("[\t]");
+					sb.append(columns[0]).append("|").append("发布日期").append("|").append(columns[4]).append("|")
+					.append(columns[3]).append("|").append("提示语").append("|").append("描述").append("\n");
+				}
+			}
+			
+			if(s!= null){
+				s.close();
+			}
+			is.close();
+			reader.close();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sb.toString();
+		
+	}
 
 	/**
-	 * 将啥啥啥保存到本地。
+	 * 输入是InpuStream流，保存到本地。
 	 * @param is
 	 */
 	public static void saveToLocalByInputStream(InputStream is,String fileName) {
@@ -117,6 +162,8 @@ public class FileUtil {
 		System.out.println("保存文件成功");
 		
 	}
+	
+	                                      
 
 
 }

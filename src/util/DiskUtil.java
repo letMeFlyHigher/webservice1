@@ -35,6 +35,20 @@ public class DiskUtil {
 		
 		
 	}
+	
+	@Test
+	public void testFileByInputStream(){
+		String path = "D:\\Documents\\Tencent Files\\996245864\\FileRecv\\共享盘福\\生活指数2018011111.txt";
+		try {
+			FileInputStream fis = new FileInputStream(new File(path));
+			String result = FileUtil.getProcessContent(fis);
+			System.out.println(result);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	//当前版本，是包含特殊符号的版本。
 	//调用该函数前应该先判断是否包含特殊符号，如果包含，那么就重新获取indexStr。
