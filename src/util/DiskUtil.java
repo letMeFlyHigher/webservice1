@@ -21,12 +21,14 @@ public class DiskUtil {
 	@Test
 	public void indexFileCast(){
 		//读取生活指数文件，保存成String的格式。
-		String path = "D:\\Documents\\Tencent Files\\996245864\\FileRecv\\共享盘福\\生活指数_utf-8.txt";
+		String path = "D:\\Documents\\Tencent Files\\996245864\\FileRecv\\共享盘福\\生活指数2018011111.txt";
 //		readFileByLines(path);
 		String rr = readFileByChars(path);
 //		readFileByLines1(path);
 //		System.out.println(rr);
-		processRS(rr);
+//		processRS(rr);
+		
+		processRS2(rr);
 		
 		//这里读取的字符串有缺失？，String能够存多大的字符数组？
 //		String indexStr = read(path);
@@ -42,9 +44,17 @@ public class DiskUtil {
 	}
 
 	
+	private String processRS2(String indexStr){
+		
+		System.out.println(indexStr);
+		
+		return indexStr;
+		
+	}
 	
 	/**
 	 * 传进来的时候是什么格式？
+	 * 格式不固定
 	 * 			站号	站名	最小相对湿度	等级	指数类别
 	 * 			54624	黄骅	9999	2	舒适度指数
 	 * 需要什么样的格式：
@@ -54,6 +64,7 @@ public class DiskUtil {
 	 * @param indexStr
 	 * @return
 	 */
+	@Deprecated
 	private String processRS(String indexStr) {
 		String[] hh = indexStr.split("站号\\s+站名\\s+最小相对湿度\\s+等级\\s+指数类别\\s+");
 //		System.out.println(hh);
@@ -125,7 +136,7 @@ public class DiskUtil {
             // 一次读多个字符
             char[] tempchars = new char[1024];
             int charread = 0;
-            reader = new InputStreamReader(new FileInputStream(fileName),"utf-8");
+            reader = new InputStreamReader(new FileInputStream(fileName),"gbk");
             // 读入多个字符到字符数组中，charread为一次读取字符数
             while ((charread = reader.read(tempchars)) != -1) {
                 // 同样屏蔽掉\r不显示
