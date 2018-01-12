@@ -27,9 +27,11 @@ public class DiskUtil {
 //		readFileByLines1(path);
 //		System.out.println(rr);
 //		processRS(rr);
-		
+		//如果包含特殊符号就重新读取该文件，知道没有特殊符号位置。
+		while(rr.contains("�")){
+			rr = readFileByChars(path);
+		}
 		processRS2(rr);
-		
 		//这里读取的字符串有缺失？，String能够存多大的字符数组？
 //		String indexStr = read(path);
 //		FileUtil.saveCSVToLocal(indexStr, "tmp.txt");
@@ -43,20 +45,46 @@ public class DiskUtil {
 		
 	}
 
-	
+	//当前版本，是包含特殊符号的版本。
+	//调用该函数前应该先判断是否包含特殊符号，如果包含，那么就重新获取indexStr。
 	private String processRS2(String indexStr){
-		
-		String[] arrIndex = indexStr.split("\n");
-		boolean flag = false;
-		//结果是这样的。。。
-		//
-		for(int i=0; i < arrIndex.length; i++){
-		    System.out.println(arrIndex[i]);	
+		//这是要做什么，这是要将一个文件中的内容按照指数类别分为多个文件。并且将该文件组织成格式为    
+		//先用\r\n分出数组来，
+																																//设置一个flag，该flag用来标志指数部分是否改变
+		//对该数组进行遍历.
+			//遍历元素包含\n，如果包含\n,那么就在分离一下下
+				//对于每一个元素的处理：
+				
+		 	//如果不包含，那就直接进行处理。
+				//对于每一个元素的处理
+		String[] arrIndex = indexStr.split("\r\n");
+		StringBuffer sb = new StringBuffer("站点号|发布日期|指数类型|级别|提示语|描述").append("\n");
+		//因为第一行是标题。所以不能要啊。
+		for(int i = 1; i < arrIndex.length; i++){
+		    	if(arrIndex[i].contains("\n")){
+		    		String[] elements = arrIndex[i].split("\n");
+		    		for(int j = 0 ; j < elements.length; j ++){
+		    			//又是一个特别想用回调函数的地方。
+		    			String element = elements[j];
+		    			//一共五列：站号	站名	最小相对湿度	等级	指数类别  《------》 站点号|发布日期|指数类型|级别|提示语|描述  这里显然需要用到StringBuffer了，并且StringBuffer是线程安全的。，虽然不知道线程安全有个什么卵用。
+		    			String [] columns = element.split("\t");
+		    			//发布日期从哪里获得？？？
+		    			sb.append(columns[0]).append("|").append("发布日期").append("|").append(columns[4]).append("|")
+		    			.append(columns[3]).append("|").append("提示语").append("|").append("描述").append("\n");
+		    		}
+		    		
+		    	}else{
+		    		String element = arrIndex[i];
+		    		//又是一个特别想用回调函数的地方。
+		    		String [] columns = element.split("\t");
+		    		sb.append(columns[0]).append("|").append("发布日期").append("|").append(columns[4]).append("|")
+	    			.append(columns[3]).append("|").append("提示语").append("|").append("描述").append("\n");
+		    		
+		    	}
 		}
 		
-		System.out.println(indexStr);
 		
-		return indexStr;
+		return sb.toString();
 		
 	}
 	
