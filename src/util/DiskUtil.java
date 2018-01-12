@@ -46,6 +46,14 @@ public class DiskUtil {
 	
 	private String processRS2(String indexStr){
 		
+		String[] arrIndex = indexStr.split("\n");
+		boolean flag = false;
+		//结果是这样的。。。
+		//
+		for(int i=0; i < arrIndex.length; i++){
+		    System.out.println(arrIndex[i]);	
+		}
+		
 		System.out.println(indexStr);
 		
 		return indexStr;
