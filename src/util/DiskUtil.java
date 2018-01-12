@@ -28,10 +28,13 @@ public class DiskUtil {
 //		System.out.println(rr);
 //		processRS(rr);
 		//如果包含特殊符号就重新读取该文件，知道没有特殊符号位置。
+		int count = 0;
 		while(rr.contains("�")){
+			System.out.println("第"+count+"次"+"读文件");
 			rr = readFileByChars(path);
 		}
-		processRS2(rr);
+		String result = processRS2(rr);
+		System.out.println(result);
 		//这里读取的字符串有缺失？，String能够存多大的字符数组？
 //		String indexStr = read(path);
 //		FileUtil.saveCSVToLocal(indexStr, "tmp.txt");
@@ -58,6 +61,7 @@ public class DiskUtil {
 		 	//如果不包含，那就直接进行处理。
 				//对于每一个元素的处理
 		String[] arrIndex = indexStr.split("\r\n");
+		
 		StringBuffer sb = new StringBuffer("站点号|发布日期|指数类型|级别|提示语|描述").append("\n");
 		//因为第一行是标题。所以不能要啊。
 		for(int i = 1; i < arrIndex.length; i++){
