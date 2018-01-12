@@ -87,7 +87,12 @@ public class FileUtil {
 		System.out.println(fileName + "保存成功");
 		
 	}
-
+	/**
+	 * 保存文件到本地，
+	 * @param result 要保存的文本，默认的编码格式为gbk
+	 * @param fileName 文件名
+	 * @param filePath 文件路径，不包含文件名
+	 */
 	public static void saveToLocal(String result, String fileName,
 			String filePath) {
 		File path = new File(filePath);

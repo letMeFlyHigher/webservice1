@@ -17,36 +17,18 @@ public class DiskUtil {
 	
 	
 	
-	//结局了。。
 	@Test
 	public void indexFileCast(){
 		//读取生活指数文件，保存成String的格式。
 		String path = "D:\\Documents\\Tencent Files\\996245864\\FileRecv\\共享盘福\\生活指数2018011111.txt";
-//		readFileByLines(path);
 		String rr = readFileByChars(path);
-//		readFileByLines1(path);
-//		System.out.println(rr);
-//		processRS(rr);
-		//如果包含特殊符号就重新读取该文件，知道没有特殊符号位置。
-		//又是以此测试
-		int count = 0;
-		//实际上不会执行这一步，因为只有在控制器中显示的才会有这个特殊的字符，所以在做是否包含该字符的判断时，这个循环永远都不会执行。
-		while(rr.contains("�")){
-			System.out.println("第"+count+"次"+"读文件");
-			rr = readFileByChars(path);
-		}
+
 		String result = processRS2(rr);
 		System.out.println(result);
 		
 		String fileName = "shenghuozhishu.txt";
 		String filePath = "E:\\";
 		FileUtil.saveToLocal(result,fileName,filePath);
-		//这里读取的字符串有缺失？，String能够存多大的字符数组？
-//		String indexStr = read(path);
-//		FileUtil.saveCSVToLocal(indexStr, "tmp.txt");
-//		System.out.println(indexStr);
-		//处理String字符串，得到目标结果
-//		String standardResult = processRS(indexStr);
 		
 		
 		
