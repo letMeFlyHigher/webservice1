@@ -52,7 +52,7 @@ public class DiskUtil {
 
 	//当前版本，是包含特殊符号的版本。
 	//调用该函数前应该先判断是否包含特殊符号，如果包含，那么就重新获取indexStr。
-	private String processRS2(String indexStr){
+	public static String processRS2(String indexStr){
 		//这是要做什么，这是要将一个文件中的内容按照指数类别分为多个文件。并且将该文件组织成格式为    
 		//先用\r\n分出数组来，
 																																//设置一个flag，该flag用来标志指数部分是否改变

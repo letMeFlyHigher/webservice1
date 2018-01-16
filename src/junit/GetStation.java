@@ -12,8 +12,8 @@ import util.ServiceUtil;
 
 public class GetStation {
 
-	@Test
-	public void run() throws AxisFault, IllegalArgumentException, ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException{
+
+	public static void run() throws AxisFault, IllegalArgumentException, ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException{
 		
 		String methodName = "GetGuoJiaZhanListByStationNum";
 		

@@ -16,8 +16,7 @@ import util.ServiceUtil;
 
 public class GetGuoJiaZhanTenDayTemp {
 	
-	@Test
-	public void run(){
+	public static  void run(){
 		
 		String methodName = "GetGuoJiaZhanDayData";
 		Map<String,Object> params = new HashMap<String,Object>();
@@ -37,10 +36,6 @@ public class GetGuoJiaZhanTenDayTemp {
 //			sb.append(stationNumber + ",");
 			arrStationNum.addString(stationNumber);
 		}
-//		sb.deleteCharAt(sb.length() - 1);
-//		String stationNums = sb.toString();
-		
-//		arrStationNum.addString(stationNums);
 		params.put("arrStationNum", arrStationNum);
 		String[] arrBeginAndEndDate = DateUtil.GetBeginDateAndEndDate("yyyy-MM-dd", "day", 10);
 		params.put("beginDate", arrBeginAndEndDate[0]);
@@ -48,7 +43,6 @@ public class GetGuoJiaZhanTenDayTemp {
 		String result = null;
 		try {
 		    result = ServiceUtil.getWebServiceResult(methodName, params);
-			System.out.println(result);
 			
 			//这里默认的情况是，查询国家站日平均气温的时候都是查了10天的，也就是么人查询的是正确的，数据全的情况下，这么做的
 			JSONArray jaa = new JSONArray(result);
@@ -68,7 +62,6 @@ public class GetGuoJiaZhanTenDayTemp {
 				for(int j = 0; j < 10; j++){
 					
 					JSONObject jo = jaa.optJSONObject(i + j);
-					System.out.println(i+j);
 					String avg = jo.optString("气温4次平均");
 					if(avg != null){
 						float tmp = Float.parseFloat(avg);

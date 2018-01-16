@@ -2,7 +2,6 @@ package util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,15 +9,64 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import jcifs.smb.SmbException;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileInputStream;
+
 
 
 public class FileUtil {
 	
+	
+	
+	/**
+	 * 根据文件来读。
+	 * @return
+	 * @throws UnknownHostException 
+	 * @throws MalformedURLException 
+	 * @throws SmbException 
+	 */
+	public static String getProcessContent2(SmbFile ss) throws SmbException, MalformedURLException, UnknownHostException{
+		SmbFileInputStream fis = null;
+		fis = new SmbFileInputStream(ss);
+		System.out.println("拿到smb流文件");
+		
+		StringBuffer sb = null;
+		try {
+			InputStreamReader reader = new InputStreamReader(fis, "gbk");
+//		BufferedReader br = new BufferedReader();
+			Scanner s = null;
+			s = new Scanner(new BufferedReader(reader));
+			sb = new StringBuffer();
+			String headLine = s.nextLine();
+			while(s.hasNextLine()){
+				String line = s.nextLine();
+				System.out.println(line);
+				
+			}
+			
+			if(s!= null){
+				s.close();
+			}
+			fis.close();
+			reader.close();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sb.toString();
+		
+	}
 	
 	/**
 	 * 读文件，将根据字节流来读。
